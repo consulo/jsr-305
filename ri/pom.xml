@@ -94,6 +94,11 @@
           <module>
             <open>true</open>
             <name>jsr305</name>
+            <exports>
+              <export>
+                <package>javax.annotation</package>
+              </export>
+            </exports>
           </module>
         </configuration>
         <executions>
