@@ -7,7 +7,7 @@
     <version>7</version>
     <relativePath/>
   </parent>
-  <groupId>com.google.code.findbugs</groupId>
+  <groupId>consulo.internal</groupId>
   <artifactId>jsr305</artifactId>
   <version>3.0.2</version>
   <packaging>jar</packaging>
@@ -33,6 +33,18 @@
     <system>GitHub</system>
     <url>https://github.com/amaembo/jsr-305/issues</url>
   </issueManagement>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>consulo</id>
+      <url>https://maven.consulo.io/repository/snapshots/</url>
+      <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>always</updatePolicy>
+      </snapshots>
+    </pluginRepository>
+  </pluginRepositories>
+
   <build>
     <plugins>
       <plugin>
@@ -74,47 +86,32 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <version>2.4.0</version>
+        <groupId>consulo.maven</groupId>
+        <artifactId>java9-maven-plugin</artifactId>
+        <version>1.0-SNAPSHOT</version>
         <extensions>true</extensions>
+        <configuration>
+          <module>
+            <open>true</open>
+            <name>jsr305</name>
+          </module>
+        </configuration>
         <executions>
           <execution>
-            <id>bundle-manifest</id>
+            <id>java9</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>generate-source-module-info</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>pre-java9</id>
             <phase>process-classes</phase>
             <goals>
-              <goal>manifest</goal>
+              <goal>generate-binary-module-info</goal>
             </goals>
           </execution>
         </executions>
-        <configuration>
-          <instructions>
-            <Bundle-SymbolicName>org.jsr-305</Bundle-SymbolicName>
-            <Bundle-Name>${project.name}</Bundle-Name>
-            <Export-Package>javax.annotation;javax.annotation.concurrent;javax.annotation.meta</Export-Package>
-          </instructions>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>2.4</version>
-        <configuration>
-          <archive>
-            <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
-          </archive>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.sonatype.plugins</groupId>
-        <artifactId>nexus-staging-maven-plugin</artifactId>
-        <version>1.6.3</version>
-        <extensions>true</extensions>
-        <configuration>
-          <serverId>ossrh</serverId>
-          <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-          <autoReleaseAfterClose>true</autoReleaseAfterClose>
-        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

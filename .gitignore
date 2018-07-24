@@ -1,1 +1,7 @@
 target
+.idea
+.consulo
+.project
+.classpath
+.settings
+nbproject
