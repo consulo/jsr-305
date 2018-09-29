@@ -15,10 +15,9 @@ Initial code from code.google.com/p/jsr-305
     <repository>
       <id>consulo</id>
       <url>https://maven.consulo.io/repository/snapshots/</url>
-      <snapshots>
+      <releases>
         <enabled>true</enabled>
-        <updatePolicy>always</updatePolicy>
-      </snapshots>
+      </releases>
     </repository>
   </repositories>
 
@@ -27,6 +26,6 @@ Initial code from code.google.com/p/jsr-305
   <dependency>
    <groupId>consulo.internal</groupId>
     <artifactId>jsr305</artifactId>
-    <version>3.0.2</version>
+    <version>3.0.3</version>
   </dependency>
 ```
